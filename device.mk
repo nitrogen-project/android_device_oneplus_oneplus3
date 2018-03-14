@@ -102,7 +102,12 @@ PRODUCT_PACKAGES += \
     memtrack.msm8996 \
     liboverlay \
     libtinyxml \
-    libqdMetaData.system
+    libqdMetaData.system \
+    libdisplayconfig \
+    libnl
+
+PRODUCT_BOOT_JARS += \
+    WfdCommon
 
 # TODO Alipay / WeChat
 #PRODUCT_BOOT_JARS += \
@@ -313,4 +318,3 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
     $(LOCAL_PATH)/seccomp/mediaextractor-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
-
