@@ -24,6 +24,11 @@
                 android:targetClass="org.omnirom.device.GestureSettings" />
     </Preference>
 
+    <SwitchPreference
+        android:key="swapkeys"
+        android:summary="@string/swapkeys_summary"
+        android:title="@string/swapkeys_title" />
+
     <PreferenceCategory
         android:title="@string/category_vibrator">
         <org.omnirom.device.VibratorStrengthPreference

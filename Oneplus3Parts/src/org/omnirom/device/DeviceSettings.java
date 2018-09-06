@@ -52,6 +52,7 @@ public class DeviceSettings extends PreferenceActivity implements
     private static final String KEY_CATEGORY_GRAPHICS = "graphics";
     private static final String KEY_CATEGORY_DISPLAY = "display";
 
+    public static final String KEY_SWAPKEYS_SWITCH = "swapkeys";
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
     public static final String KEY_PROXI_SWITCH = "proxi";
@@ -65,6 +66,7 @@ public class DeviceSettings extends PreferenceActivity implements
     private ListPreference mSliderModeTop;
     private ListPreference mSliderModeCenter;
     private ListPreference mSliderModeBottom;
+    private TwoStatePreference mSwapKeysSwitch;
     private TwoStatePreference mSRGBModeSwitch;
     private TwoStatePreference mHBMModeSwitch;
     private TwoStatePreference mDCIModeSwitch;
@@ -105,6 +107,11 @@ public class DeviceSettings extends PreferenceActivity implements
         valueIndex = mSliderModeBottom.findIndexOfValue(String.valueOf(sliderModeBottom));
         mSliderModeBottom.setValueIndex(valueIndex);
         mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
+
+        mSwapKeysSwitch = (TwoStatePreference) findPreference(KEY_SWAPKEYS_SWITCH);
+        mSwapKeysSwitch.setEnabled(SwapHwKeysSwitch.isSupported());
+        mSwapKeysSwitch.setChecked(SwapHwKeysSwitch.isCurrentlyEnabled(this));
+        mSwapKeysSwitch.setOnPreferenceChangeListener(new SwapHwKeysSwitch());
 
         mSRGBModeSwitch = (TwoStatePreference) findPreference(KEY_SRGB_SWITCH);
         mSRGBModeSwitch.setEnabled(SRGBModeSwitch.isSupported());

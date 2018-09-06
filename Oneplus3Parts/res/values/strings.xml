@@ -34,6 +34,8 @@
     <string name="proxi_title_head">Proximity check</string>
     <string name="taptowake_summary">Double tap to wake device</string>
     <string name="taptowake_title">Tap to wake</string>
+    <string name="swapkeys_summary">Swap left and right hardware keys</string>
+    <string name="swapkeys_title">Swap hardware keys</string>
     <string name="slider_mode_off">Off</string>
     <string name="slider_mode_vibrate">Vibrate</string>
     <string name="slider_mode_silent">Silent</string>

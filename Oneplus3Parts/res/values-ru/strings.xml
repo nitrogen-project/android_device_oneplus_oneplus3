@@ -31,6 +31,8 @@
     <string name="proxi_title_head">Датчик приближения</string>
     <string name="taptowake_summary">Использовать двойное нажатие для включения</string>
     <string name="taptowake_title">Нажать для включения</string>
+    <string name="swapkeys_summary">Поменять действия левой и правой сенсорных клавиш</string>
+    <string name="swapkeys_title">Порядок сенсорных клавиш</string>
     <string name="slider_mode_off">Выкл</string>
     <string name="slider_mode_vibrate">Вибрация</string>
     <string name="slider_mode_silent">Тихий</string>
