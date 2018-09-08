@@ -39,7 +39,7 @@ public class SwapHwKeysSwitch implements OnPreferenceChangeListener {
     }
 
     public static boolean isCurrentlyEnabled(Context context) {
-        return Utils.getFileValueAsBoolean(getFile(), false);
+        return Utils.getFileValueAsBoolean(getFile(), true);
     }
 
     @Override
