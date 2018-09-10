@@ -1,3 +1,2 @@
 set_prop(toolbox, diag_prop);
-get_prop(toolbox rmnet_mux_prop);
 allow toolbox init:fifo_file { write getattr };
