@@ -60,7 +60,7 @@ public class DeviceSettings extends PreferenceActivity implements
     final String KEY_DEVICE_DOZE = "device_doze";
     final String KEY_DEVICE_DOZE_PACKAGE_NAME = "org.lineageos.settings.doze";
 
-    public static final String SLIDER_DEFAULT_VALUE = "4,2,0";
+    public static final String SLIDER_DEFAULT_VALUE = "3,1,0";
 
     private VibratorStrengthPreference mVibratorStrength;
     private ListPreference mSliderModeTop;
