@@ -101,7 +101,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     liboverlay \
-    libtinyxml
+    libtinyxml \
+    libqdMetaData.system
 
 # TODO Alipay / WeChat
 #PRODUCT_BOOT_JARS += \
