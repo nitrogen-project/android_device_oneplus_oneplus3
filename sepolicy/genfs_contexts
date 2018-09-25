@@ -12,3 +12,9 @@ genfscon proc /sys/kernel/sched_small_task            u:object_r:proc_kernel_sch
 genfscon proc /sys/kernel/sched_spill_nr_run          u:object_r:proc_kernel_sched:s0
 genfscon proc /sys/kernel/sched_upmigrate             u:object_r:proc_kernel_sched:s0
 genfscon debugfs /wlan_wcnss                          u:object_r:debugfs_wlan:s0
+genfscon sysfs /devices/soc/6a00000.ssusb/power_supply                u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/soc/75b5000.i2c/i2c-7/7-001d/power_supply     u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/soc/msm-bcl-14/power_supply                   u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/soc/soc:qcom,bcl/power_supply                 u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/soc/qpnp-fg-17                                u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/soc/qpnp-smbcharger-16/power_supply           u:object_r:sysfs_batteryinfo:s0

@@ -720,7 +720,7 @@ service dashd /sbin/dashd
     group root system log
     writepid /dev/cpuset/system-background/tasks
 
-on property:init.svc.healthd=restarting
+on property:init.svc.health-hal-2-0=restarting
     restart dashd
 
 service qcomsysd /vendor/bin/qcom-system-daemon
