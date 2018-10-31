@@ -23,7 +23,7 @@
 BOARD_PATH := device/oneplus/oneplus3
 
 TARGET_NO_BOOTLOADER := true
-TARGET_OTA_ASSERT_DEVICE := none
+TARGET_OTA_ASSERT_DEVICE := OnePlus3,oneplus3,OnePlus3T,oneplus3t
 TARGET_BOOTLOADER_BOARD_NAME := msm8996
 
 # Platform
