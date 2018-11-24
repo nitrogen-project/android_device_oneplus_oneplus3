@@ -34,12 +34,13 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <dlfcn.h>
-#include <linux/qseecom.h>
+#include <errno.h>
+#include "qseecom.h"
+#include <hardware/keymaster_common.h>
+#include <hardware/hardware.h>
 #include "cutils/log.h"
 #include "cutils/properties.h"
 #include "cutils/android_reboot.h"
-#include "keymaster_common.h"
-#include "hardware.h"
 #include "cryptfs_hw.h"
 
 /*
@@ -51,8 +52,8 @@
  */
 #define ERR_MAX_PASSWORD_ATTEMPTS			-10
 #define MAX_PASSWORD_LEN				32
-#define QCOM_ICE_STORAGE_UFS				1
-#define QCOM_ICE_STORAGE_SDCC				2
+#define QTI_ICE_STORAGE_UFS				1
+#define QTI_ICE_STORAGE_SDCC				2
 #define SET_HW_DISK_ENC_KEY				1
 #define UPDATE_HW_DISK_ENC_KEY				2
 
@@ -64,6 +65,8 @@
 #define CRYPTFS_HW_UPDATE_KEY_FAILED			-9
 #define CRYPTFS_HW_WIPE_KEY_FAILED			-8
 #define CRYPTFS_HW_CREATE_KEY_FAILED			-7
+
+#define CRYPTFS_HW_ALGO_MODE_AES_XTS 			0x3
 
 enum cryptfs_hw_key_management_usage_type {
 	CRYPTFS_HW_KM_USAGE_DISK_ENCRYPTION		= 0x01,
@@ -157,6 +160,7 @@ static int __cryptfs_hw_wipe_clear_key(enum cryptfs_hw_key_management_usage_type
 static int cryptfs_hw_wipe_key(enum cryptfs_hw_key_management_usage_type usage)
 {
 	int32_t ret;
+
 	ret = __cryptfs_hw_wipe_clear_key(usage, CRYPTFS_HW_KMS_WIPE_KEY);
 	if (ret) {
 		SLOGE("Error::ioctl call to wipe the encryption key for usage %d failed with ret = %d, errno = %d\n",
@@ -168,6 +172,26 @@ static int cryptfs_hw_wipe_key(enum cryptfs_hw_key_management_usage_type usage)
 	}
 	return ret;
 }
+
+#ifdef QSEECOM_IOCTL_SET_ICE_INFO
+int set_ice_param(int flag)
+{
+	int  qseecom_fd, ret = -1;
+	struct qseecom_ice_data_t ice_data;
+	qseecom_fd = open("/dev/qseecom", O_RDWR);
+	if (qseecom_fd < 0)
+		return ret;
+	ice_data.flag = flag;
+	ret = ioctl(qseecom_fd, QSEECOM_IOCTL_SET_ICE_INFO, &ice_data);
+	close(qseecom_fd);
+	return ret;
+}
+#else
+int set_ice_param(int flag)
+{
+	return -1;
+}
+#endif
 
 static int cryptfs_hw_clear_key(enum cryptfs_hw_key_management_usage_type usage)
 {
@@ -237,10 +261,10 @@ static int map_usage(int usage)
 {
     int storage_type = is_ice_enabled();
     if (usage == CRYPTFS_HW_KM_USAGE_DISK_ENCRYPTION) {
-        if (storage_type == QCOM_ICE_STORAGE_UFS) {
+        if (storage_type == QTI_ICE_STORAGE_UFS) {
             return CRYPTFS_HW_KM_USAGE_UFS_ICE_DISK_ENCRYPTION;
         }
-        else if (storage_type == QCOM_ICE_STORAGE_SDCC) {
+        else if (storage_type == QTI_ICE_STORAGE_SDCC) {
             return CRYPTFS_HW_KM_USAGE_SDCC_ICE_DISK_ENCRYPTION;
         }
     }
@@ -272,12 +296,11 @@ static int is_qseecom_up()
     char value[PROPERTY_VALUE_MAX] = {0};
 
     for (; i<CRYPTFS_HW_UP_CHECK_COUNT; i++) {
-        property_get("sys.listeners.registered", value, "");
+        property_get("vendor.sys.keymaster.loaded", value, "");
         if (!strncmp(value, "true", PROPERTY_VALUE_MAX))
             return 1;
         usleep(100000);
     }
-    SLOGE("%s Qseecom daemon timed out", __func__);
     return 0;
 }
 
@@ -288,7 +311,7 @@ static int is_qseecom_up()
 static int set_key(const char* currentpasswd, const char* passwd, const char* enc_mode, int operation)
 {
     int err = -1;
-    if (is_hw_disk_encryption(enc_mode) && is_qseecom_up()) {
+    if (is_hw_disk_encryption(enc_mode)) {
         unsigned char* tmp_passwd = get_tmp_passwd(passwd);
         unsigned char* tmp_currentpasswd = get_tmp_passwd(currentpasswd);
         if (tmp_passwd) {
@@ -345,10 +368,10 @@ int is_ice_enabled(void)
       /* All UFS based devices has ICE in it. So we dont need
        * to check if corresponding device exists or not
        */
-      storage_type = QCOM_ICE_STORAGE_UFS;
+      storage_type = QTI_ICE_STORAGE_UFS;
     } else if (strstr(prop_storage, "sdhc")) {
       if (access("/dev/icesdcc", F_OK) != -1)
-        storage_type = QCOM_ICE_STORAGE_SDCC;
+        storage_type = QTI_ICE_STORAGE_SDCC;
     }
   }
   return storage_type;
@@ -356,9 +379,7 @@ int is_ice_enabled(void)
 
 int clear_hw_device_encryption_key()
 {
-	if(is_qseecom_up())
-		return cryptfs_hw_wipe_key(map_usage(CRYPTFS_HW_KM_USAGE_DISK_ENCRYPTION));
-	return 0;
+	return cryptfs_hw_wipe_key(map_usage(CRYPTFS_HW_KM_USAGE_DISK_ENCRYPTION));
 }
 
 static int get_keymaster_version()
