@@ -35,13 +35,13 @@
     <string name="swapkeys_title">Порядок сенсорных клавиш</string>
     <string name="slider_mode_off">Выкл</string>
     <string name="slider_mode_vibrate">Вибрация</string>
-    <string name="slider_mode_silent">Тихий</string>
     <string name="slider_mode_priority">Только приоритетные</string>
-    <string name="slider_mode_alarm">Только будильник</string>
-    <string name="slider_mode_dnd">Полная тишина</string>
     <string name="slider_mode_title_top">Верхнее положение</string>
     <string name="slider_mode_title_center">Среднее положение</string>
     <string name="slider_mode_title_bottom">Нижнее положение</string>
+    <string name="toast_ringer">Режим: Звонок</string>
+    <string name="toast_vibrate">Режим: Вибрация</string>
+    <string name="toast_dnd">Режим: Не беспокоить</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Широкий режим цветовой гаммы</string>
 

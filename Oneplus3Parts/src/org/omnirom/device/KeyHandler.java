@@ -24,6 +24,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.ContentObserver;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -37,6 +41,7 @@ import android.media.AudioManager;
 import android.media.session.MediaSessionLegacyHelper;
 import android.text.TextUtils;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -47,11 +52,15 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
+import android.widget.Toast;
 
 import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.util.ArrayUtils;
+
+import org.omnirom.device.R;
 
 public class KeyHandler implements DeviceKeyHandler {
 
@@ -61,6 +70,8 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
     private static final String KEY_CONTROL_PATH = "/proc/s1302/virtual_key";
     private static final String FPC_CONTROL_PATH = "/sys/devices/soc/soc:fpc_fpc1020/proximity_state";
+
+    private static final String PACKAGE_SYSTEMUI = "com.android.systemui";
 
     private static final int GESTURE_CIRCLE_SCANCODE = 250;
     private static final int GESTURE_V_SCANCODE = 252;
@@ -130,6 +141,7 @@ public class KeyHandler implements DeviceKeyHandler {
     private Sensor mSensor;
     private boolean mProxyIsNear;
     private boolean mUseProxiCheck;
+    private Toast toast;
 
     private SensorEventListener mProximitySensor = new SensorEventListener() {
         @Override
@@ -390,16 +402,48 @@ public class KeyHandler implements DeviceKeyHandler {
         if ( action == 0) {
             mNoMan.setZenMode(Global.ZEN_MODE_OFF_ONLY, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
+            showToast(R.string.toast_ringer, Toast.LENGTH_SHORT, 60);
         } else if (action == 1) {
             mNoMan.setZenMode(Global.ZEN_MODE_OFF_ONLY, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_VIBRATE);
+            showToast(R.string.toast_vibrate, Toast.LENGTH_SHORT, 30);
         } else if (action == 2) {
             mNoMan.setZenMode(Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
-        } else if (action == 3) {
-            mNoMan.setZenMode(Global.ZEN_MODE_ALARMS, null, TAG);
-        } else if (action == 4) {
-            mNoMan.setZenMode(Global.ZEN_MODE_NO_INTERRUPTIONS, null, TAG);
+            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
+            showToast(R.string.toast_dnd, Toast.LENGTH_SHORT, 0);
         }
+    }
+
+    void showToast(int messageId, int duration, int yOffset) {
+    Context resCtx = getPackageContext(mContext, "org.omnirom.device");
+        final String message = resCtx.getResources().getString(messageId);
+    Context ctx = getPackageContext(mContext, PACKAGE_SYSTEMUI);
+    Handler handler = new Handler(Looper.getMainLooper());
+    handler.post(new Runnable() {
+        @Override
+        public void run() {
+            if (toast != null) toast.cancel();
+                toast = Toast.makeText(ctx, message, duration);
+                toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, yOffset);
+                toast.show();
+            }
+        });
+    }
+
+    public static Context getPackageContext(Context context, String packageName) {
+        Context pkgContext = null;
+        if (context.getPackageName().equals(packageName)) {
+            pkgContext = context;
+        } else {
+            try {
+                pkgContext = context.createPackageContext(packageName,
+                        Context.CONTEXT_IGNORE_SECURITY
+                                | Context.CONTEXT_INCLUDE_CODE);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return pkgContext;
     }
 
     private Intent createIntent(String value) {

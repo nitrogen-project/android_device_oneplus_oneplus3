@@ -38,13 +38,13 @@
     <string name="swapkeys_title">Swap hardware keys</string>
     <string name="slider_mode_off">Off</string>
     <string name="slider_mode_vibrate">Vibrate</string>
-    <string name="slider_mode_silent">Silent</string>
     <string name="slider_mode_priority">Priority only</string>
-    <string name="slider_mode_alarm">Alarms only</string>
-    <string name="slider_mode_dnd">Total silence</string>
     <string name="slider_mode_title_top">Top position</string>
     <string name="slider_mode_title_center">Center position</string>
     <string name="slider_mode_title_bottom">Bottom position</string>
+    <string name="toast_ringer">Mode: Ringer</string>
+    <string name="toast_vibrate">Mode: Vibrate only</string>
+    <string name="toast_dnd">Mode: Do Not Disturb</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Wide color gamut mode</string>
 
