@@ -246,15 +246,15 @@ public class KeyHandler implements DeviceKeyHandler {
             switch(event.getScanCode()) {
                 case KEY_SLIDER_TOP:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_TOP");
-                    doHandleSliderAction(0);
+                    doHandleSliderAction(0, 0);
                     return true;
                 case KEY_SLIDER_CENTER:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_CENTER");
-                    doHandleSliderAction(1);
+                    doHandleSliderAction(1, 30);
                     return true;
                 case KEY_SLIDER_BOTTOM:
                     if (DEBUG) Log.i(TAG, "KEY_SLIDER_BOTTOM");
-                    doHandleSliderAction(2);
+                    doHandleSliderAction(2, 60);
                     return true;
             }
         }
@@ -397,20 +397,20 @@ public class KeyHandler implements DeviceKeyHandler {
         return 0;
     }
 
-    private void doHandleSliderAction(int position) {
+    private void doHandleSliderAction(int position, int yOffset) {
         int action = getSliderAction(position);
         if ( action == 0) {
             mNoMan.setZenMode(Global.ZEN_MODE_OFF_ONLY, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            showToast(R.string.toast_ringer, Toast.LENGTH_SHORT, 60);
+            showToast(R.string.toast_ringer, Toast.LENGTH_SHORT, yOffset);
         } else if (action == 1) {
             mNoMan.setZenMode(Global.ZEN_MODE_OFF_ONLY, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_VIBRATE);
-            showToast(R.string.toast_vibrate, Toast.LENGTH_SHORT, 30);
+            showToast(R.string.toast_vibrate, Toast.LENGTH_SHORT, yOffset);
         } else if (action == 2) {
             mNoMan.setZenMode(Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            showToast(R.string.toast_dnd, Toast.LENGTH_SHORT, 0);
+            showToast(R.string.toast_dnd, Toast.LENGTH_SHORT, yOffset);
         }
     }
 
