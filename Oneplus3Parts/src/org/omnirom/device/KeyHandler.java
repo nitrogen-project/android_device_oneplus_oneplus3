@@ -18,6 +18,7 @@
 package org.omnirom.device;
 
 import android.app.ActivityManagerNative;
+import android.app.ActivityThread;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -142,6 +143,8 @@ public class KeyHandler implements DeviceKeyHandler {
     private boolean mProxyIsNear;
     private boolean mUseProxiCheck;
     private Toast toast;
+    private final Context mSysUiContext;
+    private final Context mResContext;
 
     private SensorEventListener mProximitySensor = new SensorEventListener() {
         @Override
@@ -226,6 +229,8 @@ public class KeyHandler implements DeviceKeyHandler {
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
         mContext.registerReceiver(mScreenStateReceiver, screenStateFilter);
+        mSysUiContext = ActivityThread.currentActivityThread().getSystemUiContext();
+        mResContext = getPackageContext(mContext, "org.omnirom.device");
     }
 
     private class EventHandler extends Handler {
@@ -415,15 +420,13 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     void showToast(int messageId, int duration, int yOffset) {
-    Context resCtx = getPackageContext(mContext, "org.omnirom.device");
-        final String message = resCtx.getResources().getString(messageId);
-    Context ctx = getPackageContext(mContext, PACKAGE_SYSTEMUI);
-    Handler handler = new Handler(Looper.getMainLooper());
-    handler.post(new Runnable() {
+        final String message = mResContext.getResources().getString(messageId);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
         @Override
         public void run() {
             if (toast != null) toast.cancel();
-                toast = Toast.makeText(ctx, message, duration);
+                toast = Toast.makeText(mSysUiContext, message, duration);
                 toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, yOffset);
                 toast.show();
             }
