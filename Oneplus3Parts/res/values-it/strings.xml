@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014-2017 The OmniROM Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name">Oneplus 3</string>
+    <string name="category_gestures_title">Gesti a schermo spento</string>
+    <string name="category_vibrator">Vibrazione</string>
+    <string name="vib_strength_title_head">Intensità</string>
+    <string name="vib_strength_summary_head">Seleziona l\'intensità della vibrazione</string>
+    <string name="advanced_settings">Avanzato</string>
+    <string name="category_slider">Slider</string>
+    <string name="slider_mode_title">Modalità Slider</string>
+    <string name="buttons_title">Pulsanti</string>
+    <string name="swap_back_recents_summary"></string>
+    <string name="swap_back_recents_title">Inverti pulsanti indietro e app recenti</string>
+    <string name="graphics_title">Grafica</string>
+    <string name="srgb_mode_summary"></string>
+    <string name="srgb_mode_title">Modalità sRGB</string>
+    <string name="hbm_mode_summary"></string>
+    <string name="hbm_mode_title">Modalità alta luminosità</string>
+    <string name="proxi_summary_head">Controllo sul sensore di prossimità per gestire i gesti e l\'impronta</string>
+    <string name="proxi_title_head">Controllo sensore di prossimità</string>
+    <string name="taptowake_summary">Doppio tap per risvegliare il dispositivo</string>
+    <string name="taptowake_title">Doppio tap per risvegliare</string>
+    <string name="swapkeys_summary">Inverti i tasti di sinistra e destra</string>
+    <string name="swapkeys_title">Inverti tasti hardware</string>
+    <string name="slider_mode_off">Off</string>
+    <string name="slider_mode_vibrate">Vibrazione</string>
+    <string name="slider_mode_priority">Solo priorità</string>
+    <string name="slider_mode_title_top">Posizione in sù</string>
+    <string name="slider_mode_title_center">Posizione al centro</string>
+    <string name="slider_mode_title_bottom">Posizione in basso</string>
+    <string name="toast_ringer">Modalità: Suoneria</string>
+    <string name="toast_vibrate">Modalità: Solo Vibrazione</string>
+    <string name="toast_dnd">Modalità: Non Disturbare</string>
+    <string name="dci_mode_summary"></string>
+    <string name="dci_mode_title">Modalità Wide color gamut</string>
+
+    <string name="choose_app">Scegli applicazione</string>
+    <string name="category_double_swipe_gesture">Gesto II</string>
+    <string name="gesture_app_title">Avvia applicazione</string>
+    <string name="category_circle_gesture">Gesto O</string>
+    <string name="category_down_arrow_gesture">Gesto V</string>
+    <string name="category_up_arrow_gesture">Gesto A</string>
+    <string name="category_left_arrow_gesture">Gesto &lt;</string>
+    <string name="category_right_arrow_gesture">Gesto &gt;</string>
+    <string name="category_gestures_summary">Configura gesti con schermo spento</string>
+    <string name="torch_entry">Torcia</string>
+    <string name="disabled_entry">Disabilitato</string>
+    <string name="camera_entry">Fotocamera</string>
+    <string name="music_play_entry">Avvia / stoppa musica</string>
+    <string name="music_prev_entry">Traccia precedente</string>
+    <string name="music_next_entry">Traccia successiva</string>
+    <string name="not_ready_summary">Caricando...</string>
+    <string name="resolve_failed_summary">Caricamento fallito</string>
+    <string name="category_down_swipe_gesture">Scorri verso il basso</string>
+    <string name="category_up_swipe_gesture">Scorri verso l\'alto</string>
+    <string name="category_left_swipe_gesture">Scorri a sinistra</string>
+    <string name="category_right_swipe_gesture">Scorri a destra</string>
+    <string name="display_title">Schermo</string>
+    <string name="device_doze_title">Schermo Ambient</string>
+</resources>
