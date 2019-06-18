@@ -24,5 +24,5 @@ LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := qcom
 LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE := thermal.msm8996
+LOCAL_MODULE := thermal.oneplus3
 include $(BUILD_SHARED_LIBRARY)
