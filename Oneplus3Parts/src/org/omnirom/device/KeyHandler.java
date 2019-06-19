@@ -86,9 +86,9 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int GESTURE_UP_SWIPE_SCANCODE = 66;
 
     private static final int KEY_DOUBLE_TAP = 143;
-    private static final int KEY_SLIDER_TOP = 601;
-    private static final int KEY_SLIDER_CENTER = 602;
-    private static final int KEY_SLIDER_BOTTOM = 603;
+    private static final int KEY_SLIDER_TOP = 600;
+    private static final int KEY_SLIDER_CENTER = 601;
+    private static final int KEY_SLIDER_BOTTOM = 602;
 
     private static final int[] sSupportedGestures = new int[]{
         GESTURE_II_SCANCODE,
