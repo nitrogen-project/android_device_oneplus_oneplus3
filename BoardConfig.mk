@@ -30,17 +30,6 @@ TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
 BOARD_VENDOR := oneplus
 
-# Hals
-TARGET_QCOM_DISPLAY_VARIANT := caf-msm8996
-TARGET_QCOM_AUDIO_VARIANT := caf-msm8996
-TARGET_QCOM_MEDIA_VARIANT := caf-msm8996
-TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
-
-PRODUCT_SOONG_NAMESPACES += \
-    hardware/qcom/display-$(TARGET_QCOM_DISPLAY_VARIANT) \
-    hardware/qcom/audio-$(TARGET_QCOM_AUDIO_VARIANT) \
-    hardware/qcom/media-$(TARGET_QCOM_MEDIA_VARIANT)
-
 # Assertions
 TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
 TARGET_OTA_ASSERT_DEVICE := OnePlus3,oneplus3,OnePlus3T,oneplus3t
@@ -208,7 +197,7 @@ TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 TARGET_USES_INTERACTION_BOOST := true
 
 # RIL
-TARGET_RIL_VARIANT := caf
+#TARGET_RIL_VARIANT := caf
 TARGET_USES_OLD_MNC_FORMAT := true
 
 # Recovery
