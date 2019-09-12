@@ -437,6 +437,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libui_shim
 
+# Telephony
+PRODUCT_PACKAGES += \
+    telephony-ext \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
 # TextClassifier smart selection model files
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
