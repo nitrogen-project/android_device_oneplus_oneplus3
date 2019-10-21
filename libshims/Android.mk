@@ -19,7 +19,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-	GraphicBuffer.cpp
+    GraphicBuffer.cpp
 
 LOCAL_SHARED_LIBRARIES := libui
 LOCAL_MODULE := libui_shim
