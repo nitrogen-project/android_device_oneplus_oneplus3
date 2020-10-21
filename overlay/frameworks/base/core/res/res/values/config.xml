@@ -450,4 +450,7 @@
         <!-- ID0:Fingerprint:Strong -->
         <item>0:2:15</item>
     </string-array>
+
+    <!-- True if the firmware supports p2p MAC randomization -->
+    <bool name="config_wifi_p2p_mac_randomization_supported">false</bool>
 </resources>
